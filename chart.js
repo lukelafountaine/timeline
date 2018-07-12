@@ -42,7 +42,6 @@ for (let key in timelines) {
     datasets.push(timelines[key]);
 }
 
-Chart.defaults.global.elements.point.radius = 2;
 var ctx = document.getElementById("timeline");
 var myChart = new Chart(ctx, {
     type: 'line',
