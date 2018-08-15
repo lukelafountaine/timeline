@@ -132,16 +132,113 @@
     },
     {
         "timeline": "Job",
-        "title": "Job's Trial",
+        "title": "Job's Children All Died",
         "date": "-001613-01-01T08:00:00.000Z",
-        "details": "See IT Volume 2 page 81"
+        "details": "See IT Volume 2 page 81. These particular dates are my best guess."
     },
     {
         "timeline": "Job",
-        "title": "Job Died",
-        "date": "-001473-01-01T08:00:00.000Z",
-        "details": "See https://wol.jw.org/en/wol/d/r1/lp-e/1101990079?q=140+years&p=par"
+        "title": "Job is stricken with boils",
+        "date": "-001613-01-15T08:00:00.000Z",
+        "details": ""
     },
+    {
+        "timeline": "Job",
+        "title": "Job's wife tells him to curse God and die",
+        "date": "-001613-01-30T08:00:00.000Z",
+        "details": ""
+    },
+    {
+        "timeline": "Job",
+        "title": "Job's 'companions' arrive",
+        "date": "-001613-02-01T08:00:00.000Z",
+        "details": "When they saw him from a distance, they did not recognize him. They began to weep loudly and to rip their garments apart, and they threw dust into the air and onto their heads. Then they sat on the ground with him for seven days and seven nights. No one said a word to him, for they saw that his pain was very great."
+    },
+    {
+        "timeline": "Job",
+        "title": "Eliphaz' first speech",
+        "date": "-001613-02-08T08:00:00.000Z",
+        "details": ""
+    },
+    {
+        "timeline": "Job",
+        "title": "Bildad's first speech",
+        "date": "-001613-02-08T07:00:00.000Z",
+        "details": ""
+    },
+    {
+        "timeline": "Job",
+        "title": "Zophar's first speech",
+        "date": "-001613-02-08T08:00:00.000Z",
+        "details": ""
+    },
+    {
+        "timeline": "Job",
+        "title": "Eliphaz' second speech",
+        "date": "-001613-02-08T09:00:00.000Z",
+        "details": ""
+    },
+    {
+        "timeline": "Job",
+        "title": "Bildad's second speech",
+        "date": "-001613-02-08T10:00:00.000Z",
+        "details": ""
+    },
+    {
+        "timeline": "Job",
+        "title": "Zophar's second speech",
+        "date": "-001613-02-08T11:00:00.000Z",
+        "details": ""
+    },
+    {
+        "timeline": "Job",
+        "title": "Eliphaz' third speech",
+        "date": "-001613-02-08T12:00:00.000Z",
+        "details": ""
+    },
+    {
+        "timeline": "Job",
+        "title": "Bildad's third speech",
+        "date": "-001613-02-08T13:00:00.000Z",
+        "details": ""
+    },
+    {
+        "timeline": "Job",
+        "title": "Young Elihu enters the discussion",
+        "date": "-001613-02-08T14:00:00.000Z",
+        "details": "But E·liʹhu the son of Barʹa·chel the Buzʹiteb of the family of Ram had become very angry. His anger blazed against Job for trying to prove himself right rather than God. He was also very angry with Job’s three companions because they could not find an answer but had declared God wicked."
+    },
+    {
+        "timeline": "Job",
+        "title": "Jehovah speaks to Job through a windstorm",
+        "date": "-001613-02-08T15:00:00.000Z",
+        "details": ""
+    },
+    {
+        "timeline": "Job",
+        "title": "Job Repents",
+        "date": "-001613-02-08T16:00:00.000Z",
+        "details": ""
+    },
+    {
+        "timeline": "Job",
+        "title": "Jehovah comdemns Job's companions",
+        "date": "-001613-02-08T017:00:00.000Z",
+        "details": "After Jehovah had spoken these words to Job, Jehovah said to Elʹi·phaz the Teʹman·ite: “My anger burns against you and your two companions, for you have not spoken the truth about meb as my servant Job has. Now take seven bulls and seven rams and go to my servant Job, and offer up a burnt sacrifice for yourselves."
+    },
+    {
+        "timeline": "Job",
+        "title": "Jehovah restores Job's prior prosperity",
+        "date": "-001613-03-01T08:00:00.000Z",
+        "details": "So Jehovah blessed the last part of Job’s life more than the beginning, and Job came to have 14,000 sheep, 6,000 camels, 1,000 pairs of cattle, and 1,000 female donkeys. He also came to have seven more sons and three more daughters.",
+        "_comment": {    
+                "timeline": "Job",
+                "title": "Job Died",
+                "date": "-001473-01-01T08:00:00.000Z",
+                "details": "See https://wol.jw.org/en/wol/d/r1/lp-e/1101990079?q=140+years&p=par"
+            }
+    },
+
     {
         "timeline": "Moses",
         "title": "Moses was born",

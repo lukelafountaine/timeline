@@ -127,8 +127,6 @@ function drawChart() {
     });
     
     datasets = [];
-    min_date.setFullYear(min_date.getFullYear() - 50);
-    max_date.setFullYear(max_date.getFullYear() + 50);
     for (let key in timelines) {
         datasets.push(timelines[key]);
     }
