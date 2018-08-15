@@ -21,6 +21,29 @@ function toggleTimeline(event) {
     drawChart();
 }
 
+function setAll(value) {
+    for (let label in timeline_labels) {
+        if (timeline_labels.hasOwnProperty(label)) {
+            let checkbox = document.getElementById(label);
+            if (checkbox) {
+                checkbox.checked = value;
+                timeline_labels[label] = value;
+            }
+        }
+    }
+}
+
+function clearAll() {
+    setAll(false);
+    drawChart();
+}
+
+function setAllToTrue() {
+    setAll(true);
+    drawChart();
+}
+
+
 for (let timeline in timeline_labels) {
 
     // dont display a checkbox for the empty timeline
@@ -44,6 +67,19 @@ for (let timeline in timeline_labels) {
     container.appendChild(checkbox);
     container.appendChild(label);
 }
+
+const select_all = document.createElement('button');
+select_all.appendChild(document.createTextNode('Select All'));
+select_all.type = "button";
+select_all.onclick = setAllToTrue;
+document.body.appendChild(select_all);
+
+const clear_all = document.createElement('button');
+clear_all.appendChild(document.createTextNode('Clear All'));
+clear_all.type = "button";
+clear_all.onclick = clearAll
+document.body.appendChild(clear_all);
+
 
 function drawChart() {
 
