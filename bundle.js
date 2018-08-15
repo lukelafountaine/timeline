@@ -2,8 +2,7 @@
 var Chart = require('chart.js');
 var data = require('./data.json');
 
-timeline_labels = new Set();
-timelines = {};
+timeline_labels = {};
 
 function displayDate(date) {
     if (date < 0) {
@@ -12,110 +11,185 @@ function displayDate(date) {
     return date;
 }
 
+// initialize which timelines to show
 data.forEach(item => {
-    const timeline = item.timeline;
-    timeline_labels.add(timeline);
+    timeline_labels[item.timeline] = true;
+})
 
-    const color = 'black';
-
-    if (!timelines[timeline]) {
-        timelines[timeline] = {
-            data: [],
-            fill: false,
-            borderWidth: 1,
-            borderColor: color,
-            pointBackgroundColor: color
-        }
-    }
-
-    timelines[item.timeline].data.push({
-        x: new Date(item.date),
-        y: item.timeline,
-        title: item.title,
-        details: item.details,
-        date: item.date,
-        showMonth: item.showMonth
-    })
-});
-
-datasets = [];
-for (let key in timelines) {
-    datasets.push(timelines[key]);
+function toggleTimeline(event) {
+    timeline_labels[event.target.id] = !timeline_labels[event.target.id];
+    drawChart();
 }
 
-var ctx = document.getElementById("timeline");
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        datasets: datasets
-    },
-    options: {
-        legend: {
-            display: false
-        },
-        scales: {
-            xAxes: [{
-                type: 'time',
-                time: {
-                    displayFormats: {
-                        quarter: 'MMM YYYY'
-                    },
-                    min: new Date("-004100-10-01T07:00:00.000Z"),
-                    max: new Date()
-                },
-                gridLines: {
-                    display: false
-                },
-                ticks: {
-                    callback: function (value, index, values) {
-                        if (value < 0) {
-                            return (-value) + ' BCE';
-                        }
-                        return value;
-                    }
-                }
-            }],
-            yAxes: [{
-                type: 'category',
-                labels: Array.from(timeline_labels),
-                gridLines: {
-                    display: false
-                }
-            }]
-        },
-        title: {
-            display: true,
-            text: 'Approximate Timeline of Bible Events'
-        },
-        tooltips: {
-            enabled: true,
-            callbacks: {
-                label: function (tooltipItem, data) {
-                    const event = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                    const date = new Date(event.date);
-                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+for (let timeline in timeline_labels) {
 
-                    let result = ''
-                    if (event.showMonth) {
-                        result = months[date.getMonth()] + ', ';
-                    }
+    // dont display a checkbox for the empty timeline
+    if (timeline === '') { 
+        continue;
+    }
 
-                    return result + displayDate(date.getFullYear()) + ' ' + event.details;
-                },
-                title: function (tooltipItems, data) {
-                    const event = data.datasets[tooltipItems[0].datasetIndex].data[tooltipItems[0].index];
-                    return event.title;
-                },
-                afterTitle: function(tooltipItems, data) {
-                    return '';
-                }
+    // create checkbox for category
+    const checkbox = document.createElement('input');
+    checkbox.type = "checkbox";
+    checkbox.checked = true;
+    checkbox.id = timeline;
+    checkbox.onclick = toggleTimeline;
+
+    // create label for category
+    const label = document.createElement('label')
+    label.htmlFor = timeline;
+    label.appendChild(document.createTextNode(timeline));
+
+    const container = document.getElementById('checkboxes');
+    container.appendChild(checkbox);
+    container.appendChild(label);
+}
+
+function drawChart() {
+
+    timelines = {};
+
+    let min_date = new Date();
+    let max_date = new Date("-004100-10-01T07:00:00.000Z")
+    data.forEach(item => {
+
+        const timeline = item.timeline;
+
+        // if the checkbox is not selected
+        // dont display this timeline
+        if (!timeline_labels[timeline]) {
+            return;
+        }
+    
+        const color = 'black';
+    
+        if (!timelines[timeline]) {
+            timelines[timeline] = {
+                data: [],
+                fill: false,
+                borderWidth: 1,
+                borderColor: color,
+                pointBackgroundColor: color
             }
-        },
-        onClick: function(data, activeElements) {
-            // TODO: Display more details below the timeline
+        }
+    
+        timelines[item.timeline].data.push({
+            x: new Date(item.date),
+            y: item.timeline,
+            title: item.title,
+            details: item.details,
+            date: item.date,
+            showMonth: item.showMonth
+        })
+
+        const event_date = new Date(item.date);
+        if (event_date < min_date) {
+            min_date = event_date;
+        }
+        if (event_date > max_date) {
+            max_date = event_date;
+        }
+    });
+    
+    datasets = [];
+    min_date.setFullYear(min_date.getFullYear() - 50);
+    max_date.setFullYear(max_date.getFullYear() + 50);
+    for (let key in timelines) {
+        datasets.push(timelines[key]);
+    }
+
+    var ctx = document.getElementById("timeline");
+    if (ctx) {
+        ctx.parentElement.removeChild(ctx);
+    }
+
+    var ctx = document.createElement("canvas");
+    ctx.id = "timeline";
+    document.body.prepend(ctx);
+    
+
+    let labels_to_show = [];
+    for (let label in timeline_labels) {
+        if (timeline_labels.hasOwnProperty(label) && timeline_labels[label]) {
+            labels_to_show.push(label);
         }
     }
-});
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: datasets
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        displayFormats: {
+                            quarter: 'MMM YYYY'
+                        },
+                        min: min_date,
+                        max: max_date
+                    },
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: {
+                        callback: function (value, index, values) {
+                            if (value < 0) {
+                                return (-value) + ' BCE';
+                            }
+                            return value;
+                        }
+                    }
+                }],
+                yAxes: [{
+                    type: 'category',
+                    labels: labels_to_show,
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text: 'Approximate Timeline of Bible Events'
+            },
+            tooltips: {
+                enabled: true,
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        const event = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        const date = new Date(event.date);
+                        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+                        let result = ''
+                        if (event.showMonth) {
+                            result = months[date.getMonth()] + ', ';
+                        }
+
+                        return result + displayDate(date.getFullYear()) + ' ' + event.details;
+                    },
+                    title: function (tooltipItems, data) {
+                        const event = data.datasets[tooltipItems[0].datasetIndex].data[tooltipItems[0].index];
+                        return event.title;
+                    },
+                    afterTitle: function(tooltipItems, data) {
+                        return '';
+                    }
+                }
+            },
+            onClick: function(data, activeElements) {
+                // TODO: Display more details below the timeline
+            }
+        }
+    });
+}
+
+drawChart();
 },{"./data.json":2,"chart.js":3}],2:[function(require,module,exports){
 module.exports=[{
         "timeline": "Heaven",
@@ -344,6 +418,65 @@ module.exports=[{
     },
     {
         "timeline": "Jesus' Earthly Life",
+        "title": "Jesus was put to death",
+        "date": "0033-04-01T08:00:00.000Z",
+        "details": "The death of Jesus Christ took place in the spring, on the Passover Day, Nisan (or Abib) 14, according to the Jewish calendar. (Mt 26:2; Joh 13:1-3; Ex 12:1-6; 13:4) That year the Passover occurred on the sixth day of the week (counted by the Jews as from sundown on Thursday to sundown on Friday). This is evident from John 19:31, which shows that the following day was “a great” sabbath. The day after Passover was always a sabbath, no matter on what day of the week it came. (Le 23:5-7) But when this special Sabbath coincided with the regular Sabbath (the seventh day of the week), it became “a great one.” So Jesus’ death took place on Friday, Nisan 14, by about 3:00 p.m.—Lu 23:44-46.",
+        "showMonth": true
+    },
+    {
+        "timeline": "Greece",
+        "title": "Beginning of the Archaic Period",
+        "date": "-000750-1-01T07:00:00.000Z",
+        "details": "The Archaic period was most noted for the development of the arts even further, particularly through potter and sculpture. Political theory also had its roots here as well as the idea of democracy."
+    },
+    {
+        "timeline": "Greece",
+        "title": "Beginning of the Classical Period",
+        "date": "-000500-10-01T07:00:00.000Z",
+        "details": "This period is known for its full creation and implementation of the democratic system. This is the time that people refer to as the Golden Age of Ancient Greece."
+    },
+    {
+        "timeline": "Greece",
+        "title": "Beginning of the Hellenistic Period",
+        "date": "-000323-10-01T07:00:00.000Z",
+        "details": "This is the time period between the death of Alexander the Great and the emergence of the Roman Empire as signified by the Battle of Actium in 31 BCE."
+    },
+    {
+        "timeline": "Greece",
+        "title": "End of the Hellenistic Period",
+        "date": "-000031-10-01T07:00:00.000Z",
+        "details": ""
+    },
+    {
+        "timeline": "Rome",
+        "title": "Augstus Caesar began his reign",
+        "date": "-000027-1-16T07:00:00.000Z",
+        "details": "",
+        "showMonth": true
+    },
+    {
+        "timeline": "Rome",
+        "title": "Augstus Caesar died",
+        "date": "0014-8-19T07:00:00.000Z",
+        "details": "",
+        "showMonth": true
+    },
+    {
+        "timeline": "Rome",
+        "title": "Tiberius Caesar began his reign",
+        "date": "0014-9-18T07:00:00.000Z",
+        "details": "",
+        "showMonth": true
+    },
+    {
+        "timeline": "Rome",
+        "title": "Caligula began his reign",
+        "date": "0037-3-18T07:00:00.000Z",
+        "details": "",
+        "showMonth": true
+    },
+    {
+        "timeline": "Rome",
         "title": "Jesus was put to death",
         "date": "0033-04-01T08:00:00.000Z",
         "details": "The death of Jesus Christ took place in the spring, on the Passover Day, Nisan (or Abib) 14, according to the Jewish calendar. (Mt 26:2; Joh 13:1-3; Ex 12:1-6; 13:4) That year the Passover occurred on the sixth day of the week (counted by the Jews as from sundown on Thursday to sundown on Friday). This is evident from John 19:31, which shows that the following day was “a great” sabbath. The day after Passover was always a sabbath, no matter on what day of the week it came. (Le 23:5-7) But when this special Sabbath coincided with the regular Sabbath (the seventh day of the week), it became “a great one.” So Jesus’ death took place on Friday, Nisan 14, by about 3:00 p.m.—Lu 23:44-46.",
