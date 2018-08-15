@@ -231,6 +231,65 @@
         "showMonth": true
     },
     {
+        "timeline": "Greece",
+        "title": "Beginning of the Archaic Period",
+        "date": "-000750-1-01T07:00:00.000Z",
+        "details": "The Archaic period was most noted for the development of the arts even further, particularly through potter and sculpture. Political theory also had its roots here as well as the idea of democracy."
+    },
+    {
+        "timeline": "Greece",
+        "title": "Beginning of the Classical Period",
+        "date": "-000500-10-01T07:00:00.000Z",
+        "details": "This period is known for its full creation and implementation of the democratic system. This is the time that people refer to as the Golden Age of Ancient Greece."
+    },
+    {
+        "timeline": "Greece",
+        "title": "Beginning of the Hellenistic Period",
+        "date": "-000323-10-01T07:00:00.000Z",
+        "details": "This is the time period between the death of Alexander the Great and the emergence of the Roman Empire as signified by the Battle of Actium in 31 BCE."
+    },
+    {
+        "timeline": "Greece",
+        "title": "End of the Hellenistic Period",
+        "date": "-000031-10-01T07:00:00.000Z",
+        "details": ""
+    },
+    {
+        "timeline": "Rome",
+        "title": "Augstus Caesar began his reign",
+        "date": "-000027-1-16T07:00:00.000Z",
+        "details": "",
+        "showMonth": true
+    },
+    {
+        "timeline": "Rome",
+        "title": "Augstus Caesar died",
+        "date": "0014-8-19T07:00:00.000Z",
+        "details": "",
+        "showMonth": true
+    },
+    {
+        "timeline": "Rome",
+        "title": "Tiberius Caesar began his reign",
+        "date": "0014-9-18T07:00:00.000Z",
+        "details": "",
+        "showMonth": true
+    },
+    {
+        "timeline": "Rome",
+        "title": "Caligula began his reign",
+        "date": "0037-3-18T07:00:00.000Z",
+        "details": "",
+        "showMonth": true
+    },
+    {
+        "timeline": "Rome",
+        "title": "Jesus was put to death",
+        "date": "0033-04-01T08:00:00.000Z",
+        "details": "The death of Jesus Christ took place in the spring, on the Passover Day, Nisan (or Abib) 14, according to the Jewish calendar. (Mt 26:2; Joh 13:1-3; Ex 12:1-6; 13:4) That year the Passover occurred on the sixth day of the week (counted by the Jews as from sundown on Thursday to sundown on Friday). This is evident from John 19:31, which shows that the following day was “a great” sabbath. The day after Passover was always a sabbath, no matter on what day of the week it came. (Le 23:5-7) But when this special Sabbath coincided with the regular Sabbath (the seventh day of the week), it became “a great one.” So Jesus’ death took place on Friday, Nisan 14, by about 3:00 p.m.—Lu 23:44-46.",
+        "showMonth": true
+    },
+    {
         "timeline": "",
         "title": "",
         "date": "",
